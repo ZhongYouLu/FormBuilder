@@ -1,0 +1,148 @@
+@import './base/base';
+@import './components/form';
+
+// ========================================================
+// === Variables ===
+// ========================================================
+
+// ========================================================
+// === Base ===
+// ========================================================
+details {
+  & > summary {
+    margin: @gap;
+    padding: 0 0 0 @gap;
+    width: 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+}
+
+// ========================================================
+// === Classes ===
+// ========================================================
+.btn {
+  &--add {
+    margin-top: @gap-lg;
+    width: 100%;
+    background-color: @btn-bg-color-hover;
+    border: none;
+    border-radius: initial;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// ========================================================
+// === 表單 (Form) ===
+// ========================================================
+
+// ========================================================
+// === Main ===
+// ========================================================
+#app {
+  display: flex;
+}
+#setting,
+#result {
+  flex: 1;
+  margin: @gap-lg;
+}
+
+.card {
+  overflow: hidden;
+  position: relative;
+  margin-bottom: @gap-lg;
+  background-color: @color-white;
+  border-radius: 3px;
+  box-shadow: @shadow-52;
+  transition: box-shadow 0.2s ease-in;
+
+  &:hover {
+    box-shadow: @shadow-56;
+  }
+
+  &__form {
+    padding: @gap-lg;
+  }
+
+  &__header {
+    .flex-centered-Y();
+    padding: @gap @gap-lg;
+    color: @color-white;
+    font-weight: bolder;
+    background-color: lighten(@color-gray-dark, 20);
+    & > * {
+      flex: 1;
+    }
+
+    .drag {
+      @len: @font-size;
+      flex: 0 1 @len;
+      .flex-centered();
+      margin-right: @gap * 2;
+      user-select: none;
+      cursor: move;
+
+      &:hover {
+        background-color: lighten(@color-gray-dark, 30);
+      }
+
+      svg {
+        width: @len;
+        height: @len;
+      }
+    }
+
+    .deleteBtn {
+      @len: @font-size + @gap*2;
+      flex: 0 1 @len;
+      justify-self: flex-end;
+      height: @len;
+      line-height: @len;
+      font-size: @font-size;
+      text-align: center;
+      border-radius: 50%;
+      user-select: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: lighten(@color-gray-dark, 30);
+      }
+    }
+  }
+}
+
+.block {
+  margin-top: @gap-lg;
+  padding: @gap-lg;
+  border-radius: 3px;
+  box-shadow: @shadow-52;
+
+  &--option {
+  }
+  &--items {
+  }
+  &--rule {
+  }
+  &--msg {
+  }
+}
+
+.control-bar {
+  @len: @font-size;
+  margin-bottom: @gap-lg;
+
+  button {
+    background-color: @color-white;
+    border-radius: 3px;
+  }
+
+  svg {
+    width: @len;
+    height: @len;
+  }
+}

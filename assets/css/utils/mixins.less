@@ -1,0 +1,40 @@
+// main: classes.less
+
+// ========================================================
+// === Variables ===
+// ========================================================
+@import './variables';
+
+// ========================================================
+// === Mixins 生成變數 ===
+// ========================================================
+.if(@condition, @property, @value) when (@condition = true) {
+  @{property}: @value;
+}
+
+// ========================================================
+// === Mixins-基本 ===
+// ========================================================
+.content-centered(@x: true, @y: true) {
+  display: flex;
+  .if(@x, justify-content, center);
+  .if(@y, align-items, center);
+}
+
+// 文字省略
+.text-ellipsis(@line: 1) {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  & when (@line > 1) {
+    display: -webkit-box;
+    -webkit-line-clamp: @line;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+  }
+}
+// 文字截斷: 需要指定具有最大寬度值的邊界
+.truncate(@truncation-boundary) {
+  .text-ellipsis();
+  max-width: @truncation-boundary;
+}

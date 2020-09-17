@@ -1,0 +1,10 @@
+{
+  "less.compile": {
+    "compress": false, // 是否壓縮
+    "sourceMap": false, // 是否產生map文件，可以在console看到less行數
+    "out": "${workspaceRoot}\\dist\\css\\", // 是否輸出CSS文件，false為不輸出
+    "outExt": ".css", // 輸出文件的後綴
+    "autoprefixer": ">5%, last 2 versions, not ie <= 8",
+    "javascriptEnabled": true
+  }
+}

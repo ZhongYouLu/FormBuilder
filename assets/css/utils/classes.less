@@ -1,0 +1,55 @@
+// main: _utils.less
+
+// ========================================================
+// === Variables ===
+// ========================================================
+@import './variables';
+
+// ========================================================
+// === Mixins ===
+// ========================================================
+@import './mixins';
+
+// ========================================================
+// === Classes === ※　用法　&:extend(class all)
+// ========================================================
+
+// ========================================================
+// === 基本 ===
+// ========================================================
+.hide {
+  display: none;
+}
+
+.text-ellipsis {
+  .truncate(100%);
+}
+
+.flex-centered {
+  .content-centered();
+}
+.flex-centered-X {
+  .content-centered(@y: false);
+}
+.flex-centered-Y {
+  .content-centered(@x: false);
+}
+
+.border-top-dashed {
+  margin-top: @gap-lg;
+  border-top: 1px dashed @border-color;
+}
+
+.btn {
+  padding: @gap;
+  text-align: center;
+  color: @btn-color;
+  background-color: @btn-bg-color;
+  border: @border-width solid @border-color;
+  border-radius: 3px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: @btn-bg-color-hover;
+  }
+}

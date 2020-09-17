@@ -1,0 +1,53 @@
+// main: ../main.less
+
+@import '../utils/_utils';
+
+* {
+  box-sizing: inherit;
+  // -webkit-tap-highlight-color: transparent;
+  &::after,
+  &::before {
+    box-sizing: inherit;
+  }
+}
+
+html {
+  // This defines what 1rem is
+  font-size: 62.5%; //1 rem = 10px; 10px/16px = 62.5%
+}
+
+body {
+  box-sizing: border-box;
+  font-family: 'Microsoft JhengHei', sans-serif;
+  font-size: @font-size;
+  line-height: 1.7;
+  color: @text-color;
+  background-color: @bg-color;
+}
+
+::selection {
+  color: @selection-color;
+  background-color: @selection-bg-color;
+}
+
+ul,
+ol,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  &:link,
+  &:visited {
+    color: @link-color;
+  }
+  &:active,
+  &:hover {
+    color: @link-color--hover;
+    text-decoration: underline;
+  }
+}

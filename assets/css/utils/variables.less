@@ -1,0 +1,104 @@
+// main: mixins.less, main: classes.less
+
+// ========================================================
+// === Variables ===
+// ========================================================
+
+// Z軸 (Z-INDEX)
+@z: {
+  fixed: 1000;
+  dropdown: 1010;
+  sticky: 1020;
+  scrolltop: 1030;
+  modal: 1040;
+  popover: 1050;
+  tooltip: 1060;
+  max: 2147483647;
+};
+
+// 斷點 (BREAK POINTS)
+@bp-size: {
+  xs: 576px;
+  sm: 768px;
+  md: 992px;
+  lg: 1200px;
+  gap: 0.02px;
+};
+@bp-up: {
+  xs: ~'(min-width:' @bp-size[xs] ~')'; // Small devices (landscape phones, 576px and up)
+  sm: ~'(min-width:' @bp-size[sm] ~')'; // Medium devices (tablets, 768px and up)
+  md: ~'(min-width:' @bp-size[md] ~')'; // Large devices (desktops, 992px and up)
+  lg: ~'(min-width:' @bp-size[lg] ~')'; // Extra large devices (large desktops, 1200px and up)
+};
+@bp-down: {
+  xs: ~'(max-width:' @bp-size[xs]- @bp-size[gap] ~')'; // Extra small devices (portrait phones, less than 576px)
+  sm: ~'(max-width:' @bp-size[sm]- @bp-size[gap] ~')'; // Small devices (landscape phones, less than 768px)
+  md: ~'(max-width:' @bp-size[md]- @bp-size[gap] ~')'; // Medium devices (tablets, less than 992px)
+  lg: ~'(max-width:' @bp-size[lg]- @bp-size[gap] ~')'; // Large devices (desktops, less than 1200px)
+};
+@bp-only: {
+  xs: ~'(max-width:' @bp-size[xs]- @bp-size[gap] ~')'; // Extra small devices (portrait phones, less than 576px)
+  sm: ~'(min-width:' @bp-size[xs] ~') and (max-width:' @bp-size[sm]- @bp-size[gap] ~')'; // Small devices (landscape phones, 576px and up)
+  md: ~'(min-width:' @bp-size[sm] ~') and (max-width:' @bp-size[md]- @bp-size[gap] ~')'; // Medium devices (tablets, 768px and up)
+  lg: ~'(min-width:' @bp-size[md] ~') and (max-width:' @bp-size[lg]- @bp-size[gap] ~')'; // Large devices (desktops, 992px and up)
+  xl: ~'(min-width:' @bp-size[lg] ~')'; // Extra large devices (large desktops, 1200px and up)
+};
+
+@bp-ratio: {
+  md: ~'(-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2)';
+};
+
+// 基本顏色
+@color-white: #fff;
+@color-black: #333;
+@color-gray-light: #f7f7f7;
+@color-gray-dark: #777;
+
+@color-primary: #b9c6ae; // 主色
+@color-secondary: #8a95a5; // 次色
+@color-tertiary: #757083; // 3
+@color-quaternary: #474056; // 4
+@color-quinary: #090c08; // 5
+
+@color-success: #4fc7af; //成功色
+@color-danger: #f95555; //危險色(錯誤色)
+@color-warning: #f78a16; //警告色
+@color-info: #17a2b8; // 信息色
+@color-muted: fade(@color-black, 25%); //靜音色(無效色)
+
+@color-text: fade(@color-black, 65%); //主文本色
+@color-text-secondary: fade(@color-black, 45%); //次文本色
+@color-subtitles: #9a8864;
+@color-highlight: #e9e59b;
+@color-tips: #a8a8a8;
+
+// 應用顏色
+@bg-color: @color-gray-light;
+@text-color: @color-black;
+
+@border-color: @color-gray-dark;
+
+@selection-bg-color: @color-gray-dark;
+@selection-color: @color-white;
+
+@link-color: @color-gray-dark;
+@link-color--hover: @color-black;
+
+@btn-bg-color: @color-white;
+@btn-color: @color-black;
+@btn-bg-color-hover: darken(@color-white, 10);
+
+// 字型
+@font-size: 1.6rem;
+
+// 邊框
+@border-width: 0.1rem;
+
+// 間距
+@input-gap: 0.5rem;
+@gap: 0.5rem; //md
+@gap-lg: 1rem;
+
+// 陰影
+@shadow-52: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+@shadow-56: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;

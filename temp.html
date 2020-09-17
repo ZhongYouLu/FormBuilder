@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script src="/assets/js/main.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <form action="" name="memberRegister" id="memberRegister">
+      <div>
+        <label for="email">信箱:</label>
+        <input type="text" name="email" id="email" />
+      </div>
+      <div>
+        <label for="password">密碼:</label>
+        <input type="password" name="password" id="password" />
+      </div>
+      <div>
+        <label for="password">確認密碼:</label>
+        <input type="password" name="password2" id="password2" />
+      </div>
+      <div>
+        <label for="tel">手機:</label>
+        <input type="tel" name="tel" id="tel" />
+      </div>
+      <div>
+        <label for="num">數量:</label>
+        <select name="num" id="num">
+          <option value="" selected="selected" hidden="hidden">Choose here</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+      </div>
+
+      <div>
+        <select name="strings" id="strings" multiple>
+          <option value="Test">Test</option>
+          <option value="Prof">Prof</option>
+          <option value="Live">Live</option>
+          <option value="Off">Off</option>
+          <option value="On">On</option>
+        </select>
+      </div>
+
+      <label>Gender:</label>
+      <div class="checkboxes">
+        <label><input type="radio" name="gender" value="male" /><span>Male</span></label>
+        <label><input type="radio" name="gender" value="female" /><span>Female</span></label>
+        <label><input type="radio" name="gender" value="other" /><span>Other</span></label>
+      </div>
+
+      <fieldset>
+        <legend>What is Your Favorite Pet?</legend>
+        <label><input type="checkbox" name="favorite_pet" value="cats" />Cats</label><br />
+        <label><input type="checkbox" name="favorite_pet" value="dogs" />Dogs</label><br />
+        <label><input type="checkbox" name="favorite_pet" value="birds" />Birds</label><br />
+      </fieldset>
+
+      <div>
+        <label for="t1">t1:</label>
+        <input type="text" name="t1" id="t1" />
+      </div>
+      <div>
+        <label for="t2">t2:</label>
+        <input type="text" name="t2" id="t2" />
+      </div>
+
+      <div>
+        <label for="t3">t3:</label>
+        <input type="text" name="t3" id="t3" />
+      </div>
+
+      <div id="t4">
+        <div>
+          <label for="t4-1">t4-1:</label>
+          <input type="text" name="t4-1" id="t4-1" />
+        </div>
+        <div>
+          <label for="t4-2">t4-2:</label>
+          <input type="text" name="t4-2" id="t4-2" />
+        </div>
+      </div>
+      <div id="t5">
+        <div>
+          <label for="t5-1">t5-1:</label>
+          <input type="text" name="t5-1" id="t5-1" />
+        </div>
+        <label>t5-2:</label>
+        <div class="checkboxes">
+          <label><input type="radio" name="t5-2" value="0" /><span>0</span></label>
+          <label><input type="radio" name="t5-2" value="1" /><span>1</span></label>
+          <label><input type="radio" name="t5-2" value="2" /><span>2</span></label>
+        </div>
+      </div>
+      <div>
+        <label>
+          <input type="checkbox" name="agree" id="agree" value="1" />
+          已閱讀並同意[服務條款]與[隱私保護政策]
+        </label>
+      </div>
+      <button type="submit" id="sendBtn">送出</button>
+    </form>
+  </body>
+  <script>
+    var json = {
+      email: {
+        text: '信箱',
+        defaultValue: 'test@gmail.com',
+        placeholder: '請輸入電子信箱',
+        autocomplete: 'email',
+        rule: { required: true, regex: formValidation.regex.email },
+        requiredSync: ['t1', 't2'],
+      },
+      password: {
+        text: '密碼',
+        defaultValue: 'a123456789',
+        placeholder: '請輸入密碼',
+        autocomplete: 'new-password',
+        rule: { required: true, regex: formValidation.regex.password, minimum: 8, maximum: 16 },
+      },
+      password2: {
+        text: '確認密碼',
+        defaultValue: 'a123456789',
+        placeholder: '請確認密碼',
+        rule: { required: true, regex: formValidation.regex.password, minimum: 8, maximum: 16, equality: 'password' },
+      },
+      tel: {
+        text: '手機',
+        defaultValue: '0912345678',
+        placeholder: '請輸入手機',
+        autocomplete: 'tel',
+        rule: { required: true, regex: formValidation.regex.tel },
+      },
+      num: {
+        text: '數量',
+        defaultValue: '3',
+        rule: { required: true },
+        imitator: 'num-list',
+      },
+      strings: {
+        text: '多選',
+        defaultValue: ['Test', 'Off'],
+        rule: { required: true },
+        conditions: [
+          {
+            triggerID: 'num',
+            findOne: ['2', '3', '4'],
+          },
+        ],
+      },
+      gender: {
+        text: '性別',
+        defaultValue: 'female',
+        rule: { required: true },
+      },
+      favorite_pet: {
+        text: '喜愛寵物',
+        defaultValue: ['cats', 'dogs'],
+        rule: { required: true, onlyOne: false },
+      },
+      t3: {
+        conditions: [
+          {
+            triggerID: 'strings',
+            findOne: ['Off'],
+          },
+          {
+            triggerID: 'num',
+            findOne: ['2'],
+          },
+        ],
+      },
+      t4: {
+        conditions: [
+          {
+            triggerID: 'favorite_pet',
+            findOne: ['birds'],
+          },
+        ],
+      },
+      't4-2':{
+        rule: { required: true },
+      },
+      t5: {
+        conditions: [
+          {
+            triggerID: 'favorite_pet',
+            findOne: ['dogs'],
+          },
+        ],
+      },
+      't5-2': {
+        defaultValue: '2',
+      },
+      agree: {
+        text: '條款',
+        defaultValue: '1',
+        rule: { required: true },
+      },
+    };
+    formValidation.init('memberRegister', json);
+
+    var sendBtn = document.getElementById('sendBtn');
+    sendBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var result = formValidation.validation('memberRegister');
+
+      if (result.isPass) {
+        //do something
+      } else {
+        alert(result.errorMsg);
+      }
+      console.log(formValidation.serialize('memberRegister').replace(/&/g, '\r\n'));
+      return false;
+
+      return result.isPass;
+    });
+  </script>
+</html>

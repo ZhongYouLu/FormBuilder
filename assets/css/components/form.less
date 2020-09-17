@@ -1,0 +1,208 @@
+// out: false
+
+// ========================================================
+// === 表單 (Form) ===
+// ========================================================
+input,
+select {
+  outline: none;
+}
+
+// 自訂輸入框樣式
+.input,
+.input-date {
+  overflow: hidden;
+  background-color: @color-white;
+  border-radius: 3px;
+  border: @border-width solid @border-color;
+
+  input {
+    display: block;
+    padding: @input-gap;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+  }
+}
+
+.select {
+  overflow: hidden;
+  background-color: @color-white;
+  border-radius: 3px;
+  border: @border-width solid @border-color;
+
+  select {
+    display: block;
+    padding: @input-gap;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+  }
+
+  &:hover {
+    background-color: darken(@color-white, 10);
+  }
+  &:active {
+    background-color: darken(@color-white, 20);
+  }
+}
+
+// 自訂多選框樣式
+input[type='radio'],
+input[type='checkbox'] {
+  position: absolute;
+  opacity: 0;
+
+  // 自定義框
+  & + span {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: @font-size + @input-gap;
+    cursor: pointer;
+
+    // 按鈕
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      display: inline-block;
+      top: @input-gap;
+      left: 0;
+      width: @font-size;
+      height: @font-size;
+      background-color: @color-white;
+      border: @border-width solid @border-color;
+    }
+    &::after {
+      transition: opacity 0.1s ease-in;
+      opacity: 0;
+    }
+  }
+
+  &:checked + span {
+    &::after {
+      background-color: @border-color;
+      opacity: 1;
+      transform-origin: center center;
+    }
+  }
+}
+input[type='radio'] {
+  & + span {
+    &::before,
+    &::after {
+      border-radius: 50%;
+    }
+  }
+
+  &:checked + span {
+    &::after {
+      transform: scale(0.5);
+      border: none;
+    }
+  }
+}
+input[type='checkbox'] {
+  &:checked + span {
+    &::after {
+      height: @font-size / 2;
+      background-color: transparent;
+      border-top: none;
+      border-right: none;
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+// 多選列
+.radio-row {
+  & > label {
+    display: inline-block;
+    margin-right: @input-gap*4;
+    white-space: nowrap; /* 強迫不換行 */
+
+    &:last-of-type {
+      margin-right: initial;
+    }
+  }
+}
+
+// 輸入列
+.input-row {
+  .flex-centered-Y();
+  flex-wrap: wrap;
+  width: 100%;
+
+  &:not(:last-of-type) {
+    margin-bottom: @gap;
+  }
+
+  &.inline {
+    flex-wrap: nowrap;
+  }
+
+  .for {
+    flex: 0 1 25%;
+    white-space: nowrap; /* 強迫不換行 */
+  }
+
+  // 加星號
+  &.required .for {
+    position: relative;
+
+    p {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    &::after {
+      content: '*';
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+      top: 0;
+      left: 0;
+      color: @color-danger;
+    }
+  }
+
+  .field {
+    flex: 1 0 75%;
+    text-align: left;
+
+    .input,
+    .input-date {
+      transition: border-color 0.3s ease-in;
+
+      &::after {
+        transition: border-color 0.3s ease-in;
+      }
+    }
+
+    // TODO: 待整理
+    .warn:not(.select) {
+      &,
+      &::after {
+        color: @color-danger;
+      }
+
+      & + .tips {
+        @width: 1.2rem;
+        position: relative;
+        padding-left: 1.4rem;
+        color: @color-danger;
+
+        &::before {
+          content: '';
+          position: absolute;
+          display: block;
+          top: 0;
+          left: 0;
+          width: @width;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
