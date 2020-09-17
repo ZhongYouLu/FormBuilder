@@ -1,8 +1,8 @@
 <template>
   <div class="card">
     <header class="card__header">
-      <div class="drag">
-        <svg focusable="false" viewBox="0 0 24 24">
+      <div class="card__drag">
+        <svg viewBox="0 0 24 24">
           <path
             d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2s.9-2 2-2s2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2z"
             fill="currentColor"
@@ -10,10 +10,39 @@
         </svg>
         <span>#{{idx+1}}</span>
       </div>
-      <div class="text-ellipsis">{{ column.id }}</div>
-      <div class="deleteBtn" @click="handleDelete">&#10006;</div>
+      <div class="text-ellipsis">{{ column.name ? column.name : column.id }}</div>
+      <div class="icon-btn" @click="handleOpen">
+        {{ isOpen ? '&#9866;' : '&#10010;'}}
+        <!-- <template v-if="isOpen">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M16.59 5.41L15.17 4L12 7.17L8.83 4L7.41 5.41L12 10m-4.59 8.59L8.83 20L12 16.83L15.17 20l1.41-1.41L12 14l-4.59 4.59z"
+              fill="currentColor"
+            />
+          </svg>
+        </template>
+        <template v-else>
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 18.17L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15M12 5.83L15.17 9l1.41-1.41L12 3L7.41 7.59L8.83 9L12 5.83z"
+              fill="currentColor"
+            />
+          </svg>
+        </template>-->
+      </div>
+      <div class="icon-btn" @click="handleDelete">&#10006;</div>
     </header>
-    <form :id="column.id" class="card__form">
+    <form :id="column.id" class="card__form" v-show="isOpen">
+      <label class="input-row required">
+        <div class="for">
+          <p>欄位名稱</p>
+        </div>
+        <div class="field">
+          <div class="input">
+            <input type="text" v-model="column.name" />
+          </div>
+        </div>
+      </label>
       <label class="input-row required">
         <div class="for">
           <p>欄位屬性</p>
@@ -28,16 +57,6 @@
                 :key="item.value"
               >{{ item.text }}</option>
             </select>
-          </div>
-        </div>
-      </label>
-      <label class="input-row required">
-        <div class="for">
-          <p>欄位名稱</p>
-        </div>
-        <div class="field">
-          <div class="input">
-            <input type="text" v-model="column.name" />
           </div>
         </div>
       </label>
@@ -263,7 +282,7 @@ module.exports = {
   props: ['column', 'idx'],
   data: function () {
     return {
-      count: 0,
+      isOpen: true,
     };
   },
   computed: {
@@ -285,7 +304,27 @@ module.exports = {
   },
   methods: {
     handleDelete: function () {
-      this.$emit('delete', this.idx);
+      var vm = this;
+      util.modal
+        .create({
+          name: 'deleteCard',
+          type: util.modal.TYPE.CONFIRM,
+          title: '刪除欄位',
+          msg: '確定刪除欄位?',
+        })
+        .then(function (modal) {
+          modal.mainContent.children[1].children[0].innerText = '確定刪除欄位 #{idx} [{name}] ?'.format({
+            idx: vm.idx + 1,
+            name: vm.column.name ? vm.column.name : vm.column.id,
+          });
+          modal.onConfirm = function () {
+            vm.$emit('delete', vm.idx);
+          };
+          modal.open();
+        });
+    },
+    handleOpen: function () {
+      this.isOpen = !this.isOpen;
     },
   },
 };

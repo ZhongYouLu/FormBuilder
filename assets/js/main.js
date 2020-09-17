@@ -31,7 +31,7 @@ var app = new Vue({
       group: 'description',
       disabled: false,
       ghostClass: 'ghost',
-      handle: '.drag',
+      handle: '.card__drag',
     },
   },
   created: function () {

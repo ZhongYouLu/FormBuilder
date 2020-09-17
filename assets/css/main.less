@@ -36,6 +36,27 @@ details {
   }
 }
 
+.icon-btn {
+  @len: @font-size + @gap*2;
+  .flex-centered();
+  flex: 0 1 @len;
+  width: @len;
+  height: @len;
+  line-height: @len;
+  font-size: @font-size;
+  text-align: center;
+  border-radius: 50%;
+  user-select: none;
+  cursor: pointer;
+
+  svg {
+    width: @len * 0.9;
+    height: @len * 0.9;
+  }
+  &:hover {
+    background-color: lighten(@color-gray-dark, 30);
+  }
+}
 // ========================================================
 // === 表單 (Form) ===
 // ========================================================
@@ -75,43 +96,31 @@ details {
     color: @color-white;
     font-weight: bolder;
     background-color: lighten(@color-gray-dark, 20);
-    & > * {
+
+    .text-ellipsis {
       flex: 1;
     }
 
-    .drag {
-      @len: @font-size;
-      flex: 0 1 @len;
-      .flex-centered();
-      margin-right: @gap * 2;
-      user-select: none;
-      cursor: move;
+    .icon-btn {
+      justify-self: flex-end;
+    }
+  }
 
-      &:hover {
-        background-color: lighten(@color-gray-dark, 30);
-      }
+  &__drag {
+    @len: @font-size;
+    flex: 0 1 @len;
+    .flex-centered();
+    margin-right: @gap * 2;
+    user-select: none;
+    cursor: move;
 
-      svg {
-        width: @len;
-        height: @len;
-      }
+    &:hover {
+      background-color: lighten(@color-gray-dark, 30);
     }
 
-    .deleteBtn {
-      @len: @font-size + @gap*2;
-      flex: 0 1 @len;
-      justify-self: flex-end;
+    svg {
+      width: @len;
       height: @len;
-      line-height: @len;
-      font-size: @font-size;
-      text-align: center;
-      border-radius: 50%;
-      user-select: none;
-      cursor: pointer;
-
-      &:hover {
-        background-color: lighten(@color-gray-dark, 30);
-      }
     }
   }
 }
