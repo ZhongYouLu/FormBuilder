@@ -26,13 +26,6 @@ var app = new Vue({
     },
     historyIdx: 0,
     history: [],
-    dragOptions: {
-      animation: 300,
-      group: 'description',
-      disabled: false,
-      ghostClass: 'ghost',
-      handle: '.card__drag',
-    },
   },
   created: function () {
     this.getHistory();
@@ -43,7 +36,7 @@ var app = new Vue({
         formID: 'demo',
         columns: [],
       };
-      this.handleAdd();
+      // this.handleAdd();
     },
     getHistory: function () {
       var json = localStorage.getItem('formJSON-History');
@@ -83,6 +76,8 @@ var app = new Vue({
         defaultValue: null, // 預設值
         autocomplete: null, // 自動完成
         data: {
+          srcMode: 'list',
+          displayMode: '',
           // select
           API: {
             URL: '',

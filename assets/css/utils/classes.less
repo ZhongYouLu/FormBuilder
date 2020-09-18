@@ -47,9 +47,34 @@
   background-color: @btn-bg-color;
   border: @border-width solid @border-color;
   border-radius: 3px;
+  outline: none;
+  user-select: none;
   cursor: pointer;
 
   &:hover {
     background-color: @btn-bg-color-hover;
+  }
+}
+
+.icon-btn {
+  @len: @font-size + @gap*2;
+  .flex-centered();
+  flex: 0 1 @len;
+  width: @len;
+  height: @len;
+  line-height: @len;
+  font-size: @font-size;
+  text-align: center;
+  border-radius: 50%;
+  outline: none;
+  user-select: none;
+  cursor: pointer;
+
+  svg {
+    width: @len * 0.9;
+    height: @len * 0.9;
+  }
+  &:hover {
+    background-color: lighten(@color-gray-dark, 30);
   }
 }

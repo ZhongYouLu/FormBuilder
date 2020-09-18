@@ -50,7 +50,12 @@
           <span>{{history[historyIdx]?.created}}</span>
           <div>(localStorage 紀錄最後五筆手動存檔)</div>
         </div>
-        <draggable v-bind="dragOptions" v-model="formJSON.columns">
+        <draggable
+          v-model="formJSON.columns"
+          animation="300"
+          ghostClass="ghost"
+          handle=".card__drag"
+        >
           <transition-group type="transition">
             <column-form
               v-for="(column, idx) in formJSON.columns"
@@ -62,7 +67,7 @@
             ></column-form>
           </transition-group>
         </draggable>
-        <button class="btn btn--add" @click="handleAdd">+ 欄位</button>
+        <button class="btn btn--add" @click="handleAdd">&#10010;</button>
       </div>
       <div id="result">
         <form-builder :json="formJSON"></form-builder>

@@ -19,6 +19,18 @@ details {
   }
 }
 
+table {
+  width: 100%;
+}
+tbody {
+  tr:nth-child(odd) {
+    background-color: @color-gray-light;
+  }
+}
+td {
+  padding: @gap;
+}
+
 // ========================================================
 // === Classes ===
 // ========================================================
@@ -31,32 +43,11 @@ details {
     border-radius: initial;
 
     &:hover {
-      text-decoration: underline;
+      background-color: darken(@btn-bg-color-hover, 5);
     }
   }
 }
 
-.icon-btn {
-  @len: @font-size + @gap*2;
-  .flex-centered();
-  flex: 0 1 @len;
-  width: @len;
-  height: @len;
-  line-height: @len;
-  font-size: @font-size;
-  text-align: center;
-  border-radius: 50%;
-  user-select: none;
-  cursor: pointer;
-
-  svg {
-    width: @len * 0.9;
-    height: @len * 0.9;
-  }
-  &:hover {
-    background-color: lighten(@color-gray-dark, 30);
-  }
-}
 // ========================================================
 // === 表單 (Form) ===
 // ========================================================
@@ -126,6 +117,7 @@ details {
 }
 
 .block {
+  box-sizing: border-box;
   margin-top: @gap-lg;
   padding: @gap-lg;
   border-radius: 3px;
@@ -134,6 +126,9 @@ details {
   &--option {
   }
   &--items {
+    .item__drag{
+      cursor: move;
+    }
   }
   &--rule {
   }

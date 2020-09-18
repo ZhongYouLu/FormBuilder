@@ -3,7 +3,6 @@
     <input
       :type="col.type"
       :name="col.name"
-      :id="col.name"
       :value="col.defaultValue"
       :placeholder="col.placeholder"
     />
