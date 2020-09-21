@@ -12,6 +12,9 @@ function _uuid() {
 
 // Vue
 Vue.config.devtools = true;
+
+Vue.component('v-select', VueSelect.VueSelect);
+
 var app = new Vue({
   el: '#app',
   components: {
@@ -29,6 +32,11 @@ var app = new Vue({
   },
   created: function () {
     this.getHistory();
+  },
+  computed: {
+    columns: function () {
+      return this.formJSON.columns;
+    },
   },
   methods: {
     init: function () {

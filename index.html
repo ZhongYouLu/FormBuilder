@@ -4,12 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Form Builder & Validation</title>
-    <link rel="stylesheet" href="./dist/css/normalize.css" />
+    <link rel="stylesheet" href="./dist/css/vender/normalize.css" />
+    <link rel="stylesheet" href="./dist/css/vender/vue-select.css" />
     <link rel="stylesheet" href="./dist/css/main.css" />
     <script defer src="./assets/js/vendor/vue@2.6.11.js"></script>
     <script defer src="./assets/js/vendor/httpVueLoader.js"></script>
     <script defer src="./assets/js/vendor/Sortable.min.js"></script>
     <script defer src="./assets/js/vendor/vuedraggable.umd.min.js"></script>
+    <script defer src="./assets/js/vendor/vue-select.js"></script>
+    <script defer src="./assets/js/vendor/fuse.js"></script>
+    <script defer src="./assets/js/vendor/popper.min.js"></script>
     <script defer src="https://zhongyoulu.github.io/commonUtil/assets/js/commonUtil.js"></script>
     <script defer src="./assets/js/_formUtil.js"></script>
     <script defer src="./assets/js/main.js"></script>
@@ -50,16 +54,12 @@
           <span>{{history[historyIdx]?.created}}</span>
           <div>(localStorage 紀錄最後五筆手動存檔)</div>
         </div>
-        <draggable
-          v-model="formJSON.columns"
-          animation="300"
-          ghostClass="ghost"
-          handle=".card__drag"
-        >
+        <draggable v-model="formJSON.columns" animation="300" ghostClass="ghost" handle=".card__drag">
           <transition-group type="transition">
             <column-form
               v-for="(column, idx) in formJSON.columns"
               :column="column"
+              :columns="columns"
               :idx="idx"
               :key="column.id"
               @delete="handleDelete"

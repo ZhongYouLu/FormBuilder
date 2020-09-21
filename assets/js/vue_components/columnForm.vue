@@ -42,16 +42,17 @@
           <p>欄位屬性</p>
         </div>
         <div class="field">
-          <div class="select">
-            <select v-model="column.type">
-              <option value selected="selected" hidden="hidden">請選擇</option>
-              <option
-                v-for="item in columnType"
-                :value="item.value"
-                :key="item.value"
-              >{{ item.text }}</option>
-            </select>
-          </div>
+          <v-select
+            :options="columnType"
+            :reduce="option => option.value"
+            :get-option-label="option => option.text"
+            placeholder="請選擇屬性"
+            v-model="column.type"
+            :append-to-body="true"
+            :calculate-position="withPopper"
+            :clearable="false"
+            :searchable="false"
+          ></v-select>
         </div>
       </label>
       <div class="border-top-dashed">
@@ -241,9 +242,30 @@
                 <p>與...相符</p>
               </div>
               <div class="field">
-                <div class="input">
-                  <input type="text" v-model="column.rule.sameAs" />
-                </div>
+                <v-select
+                  :options="columnsExcludeSelf"
+                  :reduce="option => option.id"
+                  :get-option-label="option => option.name"
+                  placeholder="請選擇欄位"
+                  v-model="column.rule.sameAs"
+                  :append-to-body="true"
+                  :calculate-position="withPopper"
+                  :filter="fuseSearch"
+                  :reset-on-options-change="true"
+                >
+                  <template #option="option">
+                    {{ option.name || option.id }}
+                    <br />
+                    <em>{{ option.label }}</em>
+                  </template>
+                  <template #no-options="{ search, searching }">
+                    <template v-if="searching">
+                      查無
+                      <em>{{ search }}</em> 相關.
+                    </template>
+                    <em style="opacity: 0.5;" v-else>開始嘗試搜尋欄位</em>
+                  </template>
+                </v-select>
               </div>
             </label>
             <label class="input-row" v-if="isInput">
@@ -318,7 +340,7 @@
                   <input
                     type="text"
                     v-model="column.msg.sameAs"
-                    :placeholder="'[' + column.name + '] 與 [' + column.rule.sameAs + '] 不相符'"
+                    :placeholder="'[' + column.name + '] 與 [' + columnsArr[column.rule.sameAs].name + '] 不相符'"
                   />
                 </div>
               </div>
@@ -373,10 +395,11 @@
 </template>
 <script>
 module.exports = {
-  props: ['column', 'idx'],
+  props: ['column', 'columns', 'idx'],
   data: function () {
     return {
       isOpen: false,
+      placement: 'bottom',
     };
   },
   computed: {
@@ -407,6 +430,15 @@ module.exports = {
         { value: 'next', text: 'Next to each others' },
         { value: 'bothSide', text: 'Stay on each sides in a row (Left - Right)' },
       ];
+    },
+    columnsExcludeSelf: function () {
+      var vm = this;
+      return vm.columns.filter(function (column) {
+        return column.id != vm.column.id;
+      });
+    },
+    columnsArr: function () {
+      return util.convert.json2ObjByKey(this.columns, 'id');
     },
   },
   methods: {
@@ -442,6 +474,38 @@ module.exports = {
     },
     handleOpen: function () {
       this.isOpen = !this.isOpen;
+    },
+    fuseSearch: function (options, search) {
+      const fuse = new Fuse(options, {
+        keys: ['name', 'label'],
+        shouldSort: true,
+      });
+      return search.length ? fuse.search(search).map(({ item }) => item) : fuse.list;
+    },
+    withPopper: function (dropdownList, component, { width }) {
+      dropdownList.style.width = width;
+      const popper = Popper.createPopper(component.$refs.toggle, dropdownList, {
+        placement: this.placement,
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offset: [0, -1],
+            },
+          },
+          {
+            name: 'toggleClass',
+            enabled: true,
+            phase: 'write',
+            fn: function ({ state }) {
+              component.$el.classList.toggle('drop-up', state.placement === 'top');
+            },
+          },
+        ],
+      });
+      return function () {
+        popper.destroy();
+      };
     },
   },
 };

@@ -13,7 +13,7 @@ select {
 .input-date {
   overflow: hidden;
   background-color: @color-white;
-  border-radius: 3px;
+  border-radius: @border-radius;
   border: @border-width solid @border-color;
 
   input {
@@ -26,9 +26,9 @@ select {
 }
 
 .select {
-  overflow: hidden;
+  // overflow: hidden;
   background-color: @color-white;
-  border-radius: 3px;
+  border-radius: @border-radius;
   border: @border-width solid @border-color;
 
   select {
@@ -82,7 +82,7 @@ input[type='checkbox'] {
 
   &:checked + span {
     &::after {
-      background-color: @border-color;
+      background-color: fade(@border-color,100);
       opacity: 1;
       transform-origin: center center;
     }

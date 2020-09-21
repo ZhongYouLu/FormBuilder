@@ -1,15 +1,15 @@
 <template>
-  <div>
+  <div id="form-root">
     <form action="POST" :name="json.formID" :id="json.formID">
       <template v-for="col in json.columns">
-        <div class="row" :key="col.id">
-          <div class="row__label">
+        <div class="column" :key="col.id">
+          <div class="column__label">
             <label :for="col.name">
               <div>{{ col.label }}</div>
               <div v-if="col.subLabel">{{ col.subLabel }}</div>
             </label>
           </div>
-          <div class="row__field">
+          <div class="column__field">
             <template v-if="col.type === 'text' || col.type === 'number'">
               <component :is="'form-input'" :col="col" :key="col.id"></component>
             </template>
@@ -33,7 +33,7 @@ module.exports = {
     'form-select': httpVueLoader('./form/formSelect.vue'),
   },
   mounted: function () {
-    formValidation.init(this.json.formID, this.json.columns);
+    // formValidation.init(this.json.formID, this.json.columns);
   },
   methods: {
     validation: function (e) {

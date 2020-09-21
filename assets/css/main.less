@@ -53,23 +53,72 @@ td {
 // ========================================================
 
 // ========================================================
+// === 第三方 (Vender) ===
+// ========================================================
+// vue-select
+.vs {
+  &__search::placeholder {
+    color: @color-gray-dark;
+  }
+  &__clear,
+  &__open-indicator {
+    fill: fade(@border-color, 80);
+  }
+  &__dropdown {
+    &-toggle {
+      background-color: @color-white;
+      border-radius: @border-radius;
+      border: @border-width solid @border-color;
+
+      .v-select.drop-up.vs--open & {
+        border-radius: 0 0 @border-radius @border-radius;
+        border-top-color: transparent;
+        border-bottom-color: @border-color;
+      }
+    }
+    &-menu {
+      background-color: @color-white;
+      border-radius: 0 0 @border-radius @border-radius;
+      border-width: @border-width;
+      border-color: @border-color;
+    }
+    &-option {
+      &--highlight {
+        color: @selection-color;
+        background-color: @selection-bg-color;
+      }
+    }
+  }
+}
+//.vs__dropdown-menu
+[data-popper-placement='top'] {
+  border-radius: @border-radius @border-radius 0 0;
+  border-top-style: solid;
+  border-bottom-style: none;
+  box-shadow: 0 -@border-radius 6px rgba(0, 0, 0, 0.15);
+}
+
+// ========================================================
 // === Main ===
 // ========================================================
 #app {
   display: flex;
 }
-#setting,
+#setting {
+  flex: 2;
+  margin: @gap-lg;
+}
 #result {
-  flex: 1;
+  flex: 3;
   margin: @gap-lg;
 }
 
 .card {
-  overflow: hidden;
+  // overflow: hidden;
   position: relative;
   margin-bottom: @gap-lg;
   background-color: @color-white;
-  border-radius: 3px;
+  border-radius: @border-radius;
   box-shadow: @shadow-52;
   transition: box-shadow 0.2s ease-in;
 
@@ -120,13 +169,13 @@ td {
   box-sizing: border-box;
   margin-top: @gap-lg;
   padding: @gap-lg;
-  border-radius: 3px;
+  border-radius: @border-radius;
   box-shadow: @shadow-52;
 
   &--option {
   }
   &--items {
-    .item__drag{
+    .item__drag {
       cursor: move;
     }
   }
@@ -142,11 +191,17 @@ td {
 
   button {
     background-color: @color-white;
-    border-radius: 3px;
+    border-radius: @border-radius;
   }
 
   svg {
     width: @len;
     height: @len;
   }
+}
+
+#form-root {
+  padding: @gap-lg;
+  color: @color-black;
+  background-color: @color-white;
 }
